@@ -6,6 +6,7 @@ const Status = ({ type }) => {
 		["Progreso", " bg-yellow-400 "],
 		["Terminada", " bg-red-400 "],
 	]);
+
 	return (
 		<div className="m-auto py-1 w-28 md:w-32 bg-[#296073] text-white text-sm rounded-lg flex items-center justify-evenly shadow-md shadow-black/30">
 			{type}

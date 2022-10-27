@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 
-const Th = ({ title, size, sortTable, center }) => {
+const Th = ({ title, size, handleSortTasks, center }) => {
 	const [isAsc, setIsAsc] = useState(false);
 	const columns = new Map([
 		["Nombre", "description"],
@@ -13,7 +13,7 @@ const Th = ({ title, size, sortTable, center }) => {
 			<button
 				className={"flex items-center " + (center && "m-auto")}
 				onClick={(e) => {
-					sortTable(columns.get(title), isAsc);
+					handleSortTasks(columns.get(title), isAsc);
 					setIsAsc(!isAsc);
 				}}
 			>

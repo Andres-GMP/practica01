@@ -40,23 +40,29 @@ const Tareas = () => {
 			status: "Terminada",
 		},
 	]);
+	const handleCloseForm = () => {
+		setShowFormTask(false);
+		setEditTask({});
+	};
 	const handleEditTask = (newTask) => {
-		const newTestData = testData.map((task) =>
+		let auxArray = testData.map((task) =>
 			task.id === editTask.id ? newTask : task
 		);
-		setTestData(newTestData);
-		setEditTask({});
-		setShowFormTask(false);
+		setTestData(auxArray);
+		handleCloseForm();
 	};
-
 	const handleCreateTask = (newTask) => {
 		newTask.id = testData.length + 1;
 		newTask.status = "Pendiente";
 		setTestData([...testData, newTask]);
-		setShowFormTask(false);
+		handleCloseForm();
 	};
-
-	const sortTable = (column, isAsc) => {
+	const handleDeleteTask = () => {
+		let auxArray = testData.filter((el) => el.id !== editTask.id);
+		setTestData(auxArray);
+		handleCloseForm();
+	};
+	const handleSortTasks = (column, isAsc) => {
 		let auxArray = [...testData];
 		auxArray.sort((a, b) => {
 			if (a[column] > b[column]) return 1;
@@ -75,13 +81,14 @@ const Tareas = () => {
 					tasks={testData}
 					setEditTask={setEditTask}
 					setShowFormTask={setShowFormTask}
-					sortTable={sortTable}
+					handleSortTasks={handleSortTasks}
 				/>
 				{showFormTask && (
 					<FormTask
-						setShowFormTask={setShowFormTask}
+						handleCloseForm={handleCloseForm}
 						handleEditTask={handleEditTask}
 						handleCreateTask={handleCreateTask}
+						handleDeleteTask={handleDeleteTask}
 						editTask={editTask}
 					/>
 				)}
