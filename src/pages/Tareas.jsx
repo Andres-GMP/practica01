@@ -17,7 +17,7 @@ const Tareas = () => {
 		},
 		{
 			id: 2,
-			description: "Podar los plantios",
+			description: "Deshierbar",
 			sector: "AB",
 			status: "Progreso",
 		},
