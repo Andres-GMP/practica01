@@ -1,6 +1,6 @@
 import { useState } from "react";
 import NavBar from "../components/global/NavBar";
-import BtnAddTask from "../components/tareas/BtnAddTask";
+import BtnAdd from "../components/global/BtnAdd";
 import FormTask from "../components/tareas/FormTask";
 import LayoutTask from "../components/tareas/LayoutTask";
 import TableTask from "../components/tareas/TableTask";
@@ -72,6 +72,10 @@ const Tareas = () => {
 		!isAsc && auxArray.reverse();
 		setTestData(auxArray);
 	};
+	const handleClickTask = (taskData) => {
+		setEditTask(taskData);
+		setShowFormTask(true);
+	};
 
 	return (
 		<>
@@ -79,8 +83,7 @@ const Tareas = () => {
 			<LayoutTask>
 				<TableTask
 					tasks={testData}
-					setEditTask={setEditTask}
-					setShowFormTask={setShowFormTask}
+					handleClickTask={handleClickTask}
 					handleSortTasks={handleSortTasks}
 				/>
 				{showFormTask && (
@@ -92,7 +95,7 @@ const Tareas = () => {
 						editTask={editTask}
 					/>
 				)}
-				<BtnAddTask setShowFormTask={setShowFormTask} />
+				<BtnAdd onClick={() => setShowFormTask(true)} />
 			</LayoutTask>
 		</>
 	);
