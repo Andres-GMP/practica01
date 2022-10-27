@@ -11,10 +11,10 @@ import {
 
 const FormTask = ({
 	handleCloseForm,
-	handleEditTask,
 	handleCreateTask,
-	editTask,
+	handleEditTask,
 	handleDeleteTask,
+	editTask,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [error, setError] = useState(false);
@@ -34,7 +34,6 @@ const FormTask = ({
 		});
 		form.description !== "" && error && setError(false);
 	};
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!form.description || !form.sector) {
