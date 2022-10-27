@@ -69,7 +69,7 @@ const Tareas = () => {
 
 	return (
 		<>
-			<NavBar title={"Tareas"} />
+			<NavBar title={"TAREAS"} />
 			<Layout>
 				<Table
 					tasks={testData}
