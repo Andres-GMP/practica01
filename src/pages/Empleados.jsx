@@ -17,16 +17,16 @@ const Empleados = () => {
 						<Th title="Sector" size="w-2/12" center />
 					</THead>
 					<tbody>
-						<Tr tableData={["Axel Adrian Enciso Robles", "Ab"]} />
-						<Tr tableData={["Axel Adrian Enciso Robles", "Ab"]} />
-						<Tr tableData={["Axel Adrian Enciso Robles", "Ab"]} />
-						<Tr tableData={["Axel Adrian Enciso Robles", "Ab"]} />
-						<Tr tableData={["Axel Adrian Enciso Robles", "Ab"]} />
-						<Tr tableData={["Axel Adrian Enciso Robles", "Ab"]} />
+						<Tr tableData={["Juan manolo", "Ab"]} />
+						<Tr tableData={["Juan manolo", "Ab"]} />
+						<Tr tableData={["Juan manolo", "Ab"]} />
+						<Tr tableData={["Juan manolo", "Ab"]} />
+						<Tr tableData={["Juan manolo", "Ab"]} />
+						<Tr tableData={["Juan manolo", "Ab"]} />
 					</tbody>
 				</Table>
+				<BtnAdd />
 			</div>
-			<BtnAdd />
 		</>
 	);
 };
