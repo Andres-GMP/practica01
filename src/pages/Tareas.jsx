@@ -2,8 +2,8 @@ import { useState } from "react";
 import NavBar from "../components/global/NavBar";
 import BtnAdd from "../components/global/BtnAdd";
 import FormTask from "../components/tareas/FormTask";
-import LayoutTask from "../components/tareas/LayoutTask";
 import TableTask from "../components/tareas/TableTask";
+import Layout from "../components/global/Layout";
 
 const Tareas = () => {
 	const [showFormTask, setShowFormTask] = useState(false);
@@ -80,7 +80,7 @@ const Tareas = () => {
 	return (
 		<>
 			<NavBar title={"TAREAS"} />
-			<LayoutTask>
+			<Layout>
 				<TableTask
 					tasks={testData}
 					handleClickTask={handleClickTask}
@@ -96,7 +96,7 @@ const Tareas = () => {
 					/>
 				)}
 				<BtnAdd onClick={() => setShowFormTask(true)} />
-			</LayoutTask>
+			</Layout>
 		</>
 	);
 };

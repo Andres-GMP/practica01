@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Sectores from "./pages/Sectores";
 import Empleados from "./pages/Empleados";
 import Tareas from "./pages/Tareas";
+import TareasEmpleado from "./pages/TareasEmpleado";
 
 function App() {
 	//const [currentUser, setCurrentUser] = useState();
@@ -25,6 +26,7 @@ function App() {
 						<Route path="empleados" element={<Empleados />} />
 						<Route path="tareas" element={<Tareas />} />
 					</Route>
+					<Route path="tareas" element={<TareasEmpleado />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
