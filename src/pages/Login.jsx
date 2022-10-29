@@ -1,13 +1,17 @@
 import FormInput from "./../components/login/FormInput";
 import Layout from "./../components/login/Layout";
 import Hr from "./../components/login/Hr";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+	const navigate = useNavigate();
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.target);
 		const data = Object.fromEntries(formData.entries());
 		console.log(data);
+		//verificar con base de datos
+		navigate("/tareas");
 	};
 
 	return (
