@@ -1,9 +1,12 @@
 import { Icon } from "@iconify/react";
+import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/firebaseConfig";
 
 const Logout = () => {
 	const navigate = useNavigate();
-	const handleLogout = () => {
+	const handleLogout = async () => {
+		await signOut(auth);
 		navigate("/login");
 	};
 	return (

@@ -7,7 +7,7 @@ const Tr = ({ data, onClick, tableData }) => {
 			{tableData.length !== 0 &&
 				tableData.map((el, i) => (
 					<td
-						key={el.toString()}
+						key={i + 1}
 						className={`p-2 ${i === 0 ? "text-left" : "text-center"}`}
 					>
 						{el}

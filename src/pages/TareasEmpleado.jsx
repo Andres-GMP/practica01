@@ -1,48 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import NavBar from "../components/global/NavBar";
 import Layout from "../components/global/Layout";
-import TaskEmployee from "../components/tareas_empleados/TaskEmployee";
 import {
 	LayoutTaskemployee,
 	LogoutEmployee,
 	TitleTaskEmployee,
 } from "../components/tareas_empleados/TaskEmployee_Components";
+import TaskEmployee from "../components/tareas_empleados/TaskEmployee";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
+import AuthContext from "../context/AuthContext";
 
 const TareasEmpleado = () => {
-	const [testData, setTestData] = useState([
-		{
-			id: 1,
-			description: "Irrigar surcos.",
-			sector: "AB",
-			status: "Pendiente",
-		},
-		{
-			id: 2,
-			description: "Deshierbar",
-			sector: "AB",
-			status: "Pendiente",
-		},
-		{
-			id: 3,
-			description: "Limpiar surcos",
-			sector: "AB",
-			status: "Pendiente",
-		},
-		{
-			id: 4,
-			description: "Piscar los olivos",
-			sector: "AB",
-			status: "Pendiente",
-		},
-	]);
+	const { currentUser } = useContext(AuthContext);
+	const [tasks, setTasks] = useState([]);
+	const [sectorName, setSectorName] = useState("");
+	useEffect(() => {
+		const getTasks = async () => {
+			//getUserSector
+			let docRef = doc(db, "users", currentUser.uid);
+			let docSnap = await getDoc(docRef);
+
+			//getSectorTask
+			const currentSector = await docSnap.data().sector;
+			docRef = doc(db, "sectors", currentSector);
+			docSnap = await getDoc(docRef);
+
+			//setTasks
+			let newData = [];
+			docSnap.data().tasks.forEach((el) => {
+				if (el.status !== "Pendiente") return;
+				newData.push({ ...el, sector: currentSector });
+			});
+			setTasks(newData);
+			setSectorName(currentSector);
+		};
+		currentUser.uid && getTasks();
+	}, [currentUser.uid]);
+
 	return (
 		<>
 			<NavBar title="TAREAS" />
 			<Layout>
 				<LayoutTaskemployee>
-					<TitleTaskEmployee title="AB" />
-					{testData.length !== 0 &&
-						testData.map(({ id, description, sector, status }) => (
+					<TitleTaskEmployee title={sectorName} />
+					{tasks.length !== 0 &&
+						tasks.map(({ id, description, sector, status }) => (
 							<TaskEmployee
 								key={id}
 								description={description}
