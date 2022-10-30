@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBar from "../components/global/NavBar";
 import BtnAdd from "../components/global/BtnAdd";
 import FormTask from "../components/tareas/FormTask";
 import TableTask from "../components/tareas/TableTask";
 import Layout from "../components/global/Layout";
+import { auth, db } from "./../firebase/firebaseConfig";
+import {
+	collection,
+	doc,
+	getDoc,
+	getDocs,
+	query,
+	where,
+} from "firebase/firestore";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
+import { signOut } from "firebase/auth";
 
 const Tareas = () => {
 	const [showFormTask, setShowFormTask] = useState(false);
 	const [editTask, setEditTask] = useState({});
+	const { currentUser } = useContext(AuthContext);
 	const [testData, setTestData] = useState([
 		{
 			id: 1,
@@ -40,6 +53,8 @@ const Tareas = () => {
 			status: "Terminada",
 		},
 	]);
+	console.log(currentUser.uid);
+
 	const handleCloseForm = () => {
 		setShowFormTask(false);
 		setEditTask({});
@@ -81,11 +96,14 @@ const Tareas = () => {
 		<>
 			<NavBar title={"TAREAS"} />
 			<Layout>
-				<TableTask
-					tasks={testData}
-					handleClickTask={handleClickTask}
-					handleSortTasks={handleSortTasks}
-				/>
+				{testData && (
+					<TableTask
+						tasks={testData}
+						handleClickTask={handleClickTask}
+						handleSortTasks={handleSortTasks}
+					/>
+				)}
+
 				{showFormTask && (
 					<FormTask
 						handleCloseForm={handleCloseForm}

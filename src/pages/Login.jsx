@@ -2,16 +2,28 @@ import FormInput from "./../components/login/FormInput";
 import Layout from "./../components/login/Layout";
 import Hr from "./../components/login/Hr";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../firebase/firebaseConfig";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
+import { addDoc, collection, setDoc } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid";
 
 const Login = () => {
 	const navigate = useNavigate();
-	const handleSubmit = (e) => {
+	const currentUser = useContext(AuthContext);
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.target);
-		const data = Object.fromEntries(formData.entries());
-		console.log(data);
+		const { email, password } = Object.fromEntries(formData.entries());
+		try {
+			await signInWithEmailAndPassword(auth, email, password);
+			navigate("/tareas");
+		} catch (err) {
+			console.log(err);
+		}
 		//verificar con base de datos
-		navigate("/tareas");
+		//navigate("/tareas");
 	};
 
 	return (
@@ -25,10 +37,10 @@ const Login = () => {
 					className="flex flex-col w-full h-3/5 justify-evenly"
 				>
 					<FormInput
-						name="id"
-						title="INGRESE SUS DATOS"
-						placeholder="NUMERO"
-						type="text"
+						name="email"
+						title="INGRESE SU CORREO"
+						placeholder="Correo"
+						type="email"
 					/>
 					<FormInput
 						name="password"
@@ -42,6 +54,41 @@ const Login = () => {
 				</form>
 				<Hr />
 				<a
+					onClick={async (e) => {
+						e.preventDefault();
+						console.log(currentUser);
+						let x = [
+							{
+								id: uuidv4(),
+								description: "Irrigar surcos.",
+
+								status: "Pendiente",
+							},
+							{
+								id: uuidv4(),
+								description: "Deshierbar",
+
+								status: "Pendiente",
+							},
+							{
+								id: uuidv4(),
+								description: "Limpiar surcos",
+
+								status: "Terminada",
+							},
+							{
+								id: uuidv4(),
+								description: "Piscar los olivos",
+
+								status: "Progreso",
+							},
+						];
+
+						await addDoc(collection(db, "sectors"), {
+							name: "BC",
+							tasks: x,
+						});
+					}}
 					href=""
 					className="self-center mt-2 text-white/70 font-semibold tracking-wider"
 				>
