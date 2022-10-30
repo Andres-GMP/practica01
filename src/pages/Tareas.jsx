@@ -43,7 +43,6 @@ const Tareas = () => {
 				newTasks.push(...array);
 				if (sectors.length === i + 1) setTasks(newTasks);
 			});
-			console.log("first");
 		};
 		currentUser.uid && getTasks();
 	}, [currentUser.uid]);

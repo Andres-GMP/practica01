@@ -39,7 +39,7 @@ const TableTask = ({ tasks, handleClickTask, handleSortTasks }) => {
 							onClick={handleClickTask}
 							tableData={[
 								task.description,
-								"AB",
+								task.sector,
 								<Status type={task.status} center />,
 							]}
 						/>
