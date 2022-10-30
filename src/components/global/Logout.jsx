@@ -5,8 +5,8 @@ import { auth } from "../../firebase/firebaseConfig";
 
 const Logout = () => {
 	const navigate = useNavigate();
-	const handleLogout = () => {
-		signOut(auth);
+	const handleLogout = async () => {
+		await signOut(auth);
 		navigate("/login");
 	};
 	return (

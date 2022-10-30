@@ -4,27 +4,34 @@ import Hr from "./../components/login/Hr";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase/firebaseConfig";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
-import { addDoc, collection, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 const Login = () => {
 	const navigate = useNavigate();
-	const currentUser = useContext(AuthContext);
+	const { currentUser } = useContext(AuthContext);
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.target);
 		const { email, password } = Object.fromEntries(formData.entries());
 		try {
 			await signInWithEmailAndPassword(auth, email, password);
-			navigate("/tareas");
 		} catch (err) {
 			console.log(err);
 		}
-		//verificar con base de datos
-		//navigate("/tareas");
 	};
+
+	useEffect(() => {
+		const nextPage = async () => {
+			const docRef = doc(db, "users", currentUser.uid);
+			const docSnap = await getDoc(docRef);
+			navigate(docSnap.data().admin ? "/admin/tareas" : "/tareas");
+		};
+
+		currentUser && nextPage();
+	}, [currentUser]);
 
 	return (
 		<>
@@ -62,7 +69,7 @@ const Login = () => {
 								id: uuidv4(),
 								description: "Irrigar surcos.",
 
-								status: "Pendiente",
+								status: "Terminada",
 							},
 							{
 								id: uuidv4(),
@@ -74,7 +81,7 @@ const Login = () => {
 								id: uuidv4(),
 								description: "Limpiar surcos",
 
-								status: "Terminada",
+								status: "Pendiente",
 							},
 							{
 								id: uuidv4(),
@@ -82,10 +89,21 @@ const Login = () => {
 
 								status: "Progreso",
 							},
+							{
+								id: uuidv4(),
+								description: "Piscar el maiz",
+
+								status: "Pendiente",
+							},
+							{
+								id: uuidv4(),
+								description: "Piscar fresas",
+
+								status: "Pendiente",
+							},
 						];
 
-						await addDoc(collection(db, "sectors"), {
-							name: "BC",
+						await setDoc(doc(db, "sectors", "AB"), {
 							tasks: x,
 						});
 					}}

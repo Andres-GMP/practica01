@@ -13,7 +13,7 @@ import AuthContext from "../context/AuthContext";
 
 const TareasEmpleado = () => {
 	const { currentUser } = useContext(AuthContext);
-	const [testData, setTestData] = useState([]);
+	const [tasks, setTasks] = useState([]);
 	const [sectorName, setSectorName] = useState("");
 	useEffect(() => {
 		const getTasks = async () => {
@@ -23,18 +23,17 @@ const TareasEmpleado = () => {
 
 			//getSectorTask
 			const currentSector = await docSnap.data().sector;
-			docRef = doc(db, "sectors", currentSector.id);
+			docRef = doc(db, "sectors", currentSector);
 			docSnap = await getDoc(docRef);
 
 			//setTasks
 			let newData = [];
 			docSnap.data().tasks.forEach((el) => {
 				if (el.status !== "Pendiente") return;
-				el.sector = currentSector.name;
-				newData.push(el);
+				newData.push({ ...el, sector: currentSector });
 			});
-			setTestData(newData);
-			setSectorName(currentSector.name);
+			setTasks(newData);
+			setSectorName(currentSector);
 		};
 		currentUser.uid && getTasks();
 	}, [currentUser.uid]);
@@ -45,8 +44,8 @@ const TareasEmpleado = () => {
 			<Layout>
 				<LayoutTaskemployee>
 					<TitleTaskEmployee title={sectorName} />
-					{testData.length !== 0 &&
-						testData.map(({ id, description, sector, status }) => (
+					{tasks.length !== 0 &&
+						tasks.map(({ id, description, sector, status }) => (
 							<TaskEmployee
 								key={id}
 								description={description}
