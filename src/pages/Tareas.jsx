@@ -27,19 +27,20 @@ const Tareas = () => {
 		const getTasks = async () => {
 			//getSectorTask
 			try {
-				setTasks([]);
+				let newTasks = [];
 				const sectors = await currentUser.sectores;
-				await sectors.forEach(async (sector, i) => {
+				sectors.forEach(async (sector, i) => {
 					let docRef = doc(db, "sectors", sector);
 					let docSnap = await getDoc(docRef);
-					setTasks((prev) => [...prev, ...docSnap.data().tasks]);
+					newTasks = [...newTasks, ...docSnap.data().tasks];
+					if (i == sectors.length - 1) setTasks(newTasks);
 				});
 			} catch (err) {
 				console.log(err);
 			}
 		};
-		currentUser.uid && getTasks();
-	}, [currentUser.uid]);
+		getTasks();
+	}, []);
 
 	const handleCloseForm = () => {
 		setShowFormTask(false);
