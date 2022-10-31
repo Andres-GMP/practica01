@@ -23,6 +23,7 @@ const TareasEmpleado = () => {
 			const docSnap = await getDoc(docRef);
 
 			//setTasks
+			setTasks([]);
 			docSnap.data().tasks.forEach((el) => {
 				if (el.status !== "Pendiente") return;
 				setTasks((prev) => [...prev, el]);

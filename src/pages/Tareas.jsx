@@ -27,6 +27,7 @@ const Tareas = () => {
 		const getTasks = async () => {
 			//getSectorTask
 			try {
+				setTasks([]);
 				const sectors = await currentUser.sectores;
 				await sectors.forEach(async (sector, i) => {
 					let docRef = doc(db, "sectors", sector);
