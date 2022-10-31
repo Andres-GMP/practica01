@@ -30,7 +30,7 @@ const Login = () => {
 			navigate(docSnap.data().admin ? "/admin/tareas" : "/tareas");
 		};
 
-		currentUser && nextPage();
+		currentUser.uid && nextPage();
 	}, [currentUser]);
 
 	return (

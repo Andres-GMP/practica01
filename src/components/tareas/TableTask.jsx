@@ -31,7 +31,7 @@ const TableTask = ({ tasks, handleClickTask, handleSortTasks }) => {
 				/>
 			</THead>
 			<tbody>
-				{tasks &&
+				{tasks.length !== 0 &&
 					tasks.map((task) => (
 						<Tr
 							key={task.id}
