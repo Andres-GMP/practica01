@@ -1,13 +1,19 @@
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useState, useEffect, createContext } from "react";
-import { auth } from "./../firebase/firebaseConfig";
+import { auth, db } from "./../firebase/firebaseConfig";
 
 export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState({});
 	useEffect(() => {
-		const unsub = onAuthStateChanged(auth, (user) => {
-			setCurrentUser(user);
+		const unsub = onAuthStateChanged(auth, async (user) => {
+			if (!user) setCurrentUser({});
+			else {
+				let docRef = doc(db, "users", user.uid);
+				let docSnap = await getDoc(docRef);
+				setCurrentUser(docSnap.data());
+			}
 		});
 		return () => {
 			unsub();
