@@ -3,17 +3,18 @@ import Layout from "./../components/login/Layout";
 import Hr from "./../components/login/Hr";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../firebase/firebaseConfig";
+import { auth } from "../firebase/firebaseConfig";
 import { useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
-import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { v4 as uuidv4 } from "uuid";
+import { useLocation } from "react-router-dom";
 
 const Login = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { currentUser } = useContext(AuthContext);
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if (currentUser.id) return;
 		const formData = new FormData(e.target);
 		const { email, password } = Object.fromEntries(formData.entries());
 		try {
@@ -23,13 +24,12 @@ const Login = () => {
 		}
 	};
 	useEffect(() => {
-		const nextPage = async () => {
-			const docRef = doc(db, "users", currentUser.uid);
-			const docSnap = await getDoc(docRef);
-			navigate(docSnap.data().admin ? "/admin/tareas" : "/tareas");
-		};
-
-		currentUser.uid && nextPage();
+		if (!currentUser.uid) return;
+		if (!location.state || currentUser.admin !== location.state.admin) {
+			navigate(currentUser.admin ? "/admin" : "/tareas");
+			return;
+		}
+		navigate(location.state.from);
 	}, [currentUser]);
 
 	return (

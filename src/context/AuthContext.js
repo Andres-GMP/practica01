@@ -8,11 +8,15 @@ export const AuthContextProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState({});
 	useEffect(() => {
 		const unsub = onAuthStateChanged(auth, async (user) => {
-			if (!user) setCurrentUser({});
-			else {
-				let docRef = doc(db, "users", user.uid);
-				let docSnap = await getDoc(docRef);
-				setCurrentUser(docSnap.data());
+			try {
+				if (!user) setCurrentUser({});
+				else {
+					let docRef = doc(db, "users", user.uid);
+					let docSnap = await getDoc(docRef);
+					setCurrentUser(docSnap.data());
+				}
+			} catch (err) {
+				console.log(err);
 			}
 		});
 		return () => {
