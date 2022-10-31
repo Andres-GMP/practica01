@@ -22,7 +22,6 @@ const Login = () => {
 			console.log(err);
 		}
 	};
-
 	useEffect(() => {
 		const nextPage = async () => {
 			const docRef = doc(db, "users", currentUser.uid);
@@ -61,52 +60,6 @@ const Login = () => {
 				</form>
 				<Hr />
 				<a
-					onClick={async (e) => {
-						e.preventDefault();
-						console.log(currentUser);
-						let x = [
-							{
-								id: uuidv4(),
-								description: "Irrigar surcos.",
-
-								status: "Terminada",
-							},
-							{
-								id: uuidv4(),
-								description: "Deshierbar",
-
-								status: "Pendiente",
-							},
-							{
-								id: uuidv4(),
-								description: "Limpiar surcos",
-
-								status: "Pendiente",
-							},
-							{
-								id: uuidv4(),
-								description: "Piscar los olivos",
-
-								status: "Progreso",
-							},
-							{
-								id: uuidv4(),
-								description: "Piscar el maiz",
-
-								status: "Pendiente",
-							},
-							{
-								id: uuidv4(),
-								description: "Piscar fresas",
-
-								status: "Pendiente",
-							},
-						];
-
-						await setDoc(doc(db, "sectors", "AB"), {
-							tasks: x,
-						});
-					}}
 					href=""
 					className="self-center mt-2 text-white/70 font-semibold tracking-wider"
 				>
