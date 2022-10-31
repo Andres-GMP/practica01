@@ -28,13 +28,10 @@ const Tareas = () => {
 			//getSectorTask
 			try {
 				const sectors = await currentUser.sectores;
-				const newTasks = [];
 				await sectors.forEach(async (sector, i) => {
 					let docRef = doc(db, "sectors", sector);
 					let docSnap = await getDoc(docRef);
-					let array = docSnap.data().tasks;
-					newTasks.push(...array);
-					if (sectors.length === i + 1) setTasks(newTasks);
+					setTasks((prev) => [...prev, ...docSnap.data().tasks]);
 				});
 			} catch (err) {
 				console.log(err);

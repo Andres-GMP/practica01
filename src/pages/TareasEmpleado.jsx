@@ -23,12 +23,10 @@ const TareasEmpleado = () => {
 			const docSnap = await getDoc(docRef);
 
 			//setTasks
-			let newData = [];
 			docSnap.data().tasks.forEach((el) => {
 				if (el.status !== "Pendiente") return;
-				newData.push({ ...el, sector: currentSector });
+				setTasks((prev) => [...prev, el]);
 			});
-			setTasks(newData);
 			setSectorName(currentSector);
 		};
 		currentUser.uid && getTasks();
