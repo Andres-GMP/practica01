@@ -8,7 +8,7 @@ const FormLayout = ({ handleCloseForm, children, title }) => {
 		>
 			<div
 				onClick={(e) => e.stopPropagation()}
-				className="bg-white p-4 rounded-md w-4/6 shadow-lg shadow-black/30 max-w-sm cursor-default fixed overflow-hidden"
+				className="bg-white p-4 rounded-md w-4/6 shadow-lg shadow-black/30 max-w-sm cursor-default fixed overflow-hidden mt-4 max-h-[70%] overflow-y-scroll"
 			>
 				<h1 className="text-blue-500 font-bold text-xl text-center mt-1">
 					{title}
