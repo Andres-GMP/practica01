@@ -1,13 +1,10 @@
-import { useState, useEffect } from "react";
-import {
-	ErrorFormTask,
-	InputFormTask,
-	LayoutFormTask,
-	SelectFormTask,
-	SubmitFormTask,
-	DeleteFormTask,
-	TitleFormTask,
-} from "./FormTask_Components";
+import { useState, useEffect, useContext } from "react";
+import FormLayout from "../form/FormLayout";
+import FormInput from "../form/FormInput";
+import FormSelect from "../form/FormSelect";
+import FormSubmit from "../form/FormSubmit";
+import FormDelete from "../form/FormDelete";
+import AuthContext from "../../context/AuthContext";
 
 const FormTask = ({
 	handleCloseForm,
@@ -17,9 +14,8 @@ const FormTask = ({
 	editTask,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
-	const [error, setError] = useState(false);
 	const [form, setForm] = useState({ description: "", sector: "AB" });
-
+	const { currentUser } = useContext(AuthContext);
 	useEffect(() => {
 		if (Object.keys(editTask).length !== 0) {
 			setIsEditing(true);
@@ -32,37 +28,44 @@ const FormTask = ({
 			...form,
 			[e.target.name]: e.target.value,
 		});
-		form.description !== "" && error && setError(false);
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!form.description || !form.sector) {
-			setError(true);
 			return;
 		}
 		if (isEditing) handleEditTask(form);
 		else handleCreateTask(form);
 	};
-
 	return (
-		<LayoutFormTask handleCloseForm={handleCloseForm}>
-			{error && <ErrorFormTask />}
-			<TitleFormTask title={(isEditing ? "EDITAR" : "AGREGAR") + " TAREA"} />
-			<form onSubmit={handleSubmit}>
-				<InputFormTask
-					border={error ? " border-red-500 " : " border-blue-500 "}
-					handleChange={handleChange}
-					value={form.description}
-				/>
-				<div className="flex justify-between items-center">
-					<SelectFormTask handleChange={handleChange} value={form.sector} />
-					<SubmitFormTask
-						bg={!isEditing ? " bg-[#019054] " : " bg-yellow-500 "}
+		<>
+			<FormLayout
+				title={(isEditing ? "EDITAR" : "AGREGAR") + " TAREA"}
+				handleCloseForm={handleCloseForm}
+			>
+				<form onSubmit={handleSubmit}>
+					<FormInput
+						label="Descripción"
+						name="description"
+						value={form?.description}
+						onChange={handleChange}
+						errorMessage="Escribe una descripción!"
+						required
 					/>
-				</div>
-			</form>
-			{isEditing && <DeleteFormTask handleDeleteTask={handleDeleteTask} />}
-		</LayoutFormTask>
+					<FormSelect
+						label="Sector"
+						name="sector"
+						values={currentUser?.sectores}
+						value={form?.sector}
+						onChange={handleChange}
+						errorMessage="Seleccione un sector!"
+						required
+					/>
+					<FormSubmit bg={!isEditing ? " bg-[#019054] " : " bg-yellow-500 "} />
+				</form>
+				{isEditing && <FormDelete onClick={handleDeleteTask} />}
+			</FormLayout>
+		</>
 	);
 };
 

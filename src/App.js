@@ -17,6 +17,7 @@ import TareasEmpleado from "./pages/TareasEmpleado";
 
 function App() {
 	const { currentUser } = useContext(AuthContext);
+
 	const ProtectedRoute = ({ admin }) => {
 		const location = useLocation();
 		if (!currentUser.uid) {
@@ -24,6 +25,7 @@ function App() {
 		}
 		return <Outlet />;
 	};
+
 	return (
 		<BrowserRouter>
 			<Routes>
