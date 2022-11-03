@@ -14,7 +14,6 @@ import {
 } from "firebase/firestore";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
-import Logout from "../components/global/Logout";
 import { v4 as uuidv4 } from "uuid";
 
 const Tareas = () => {
@@ -119,7 +118,6 @@ const Tareas = () => {
 					handleClickTask={handleClickTask}
 					handleSortTasks={handleSortTasks}
 				/>
-				<Logout />
 				{showFormTask && (
 					<FormTask
 						handleCloseForm={handleCloseForm}

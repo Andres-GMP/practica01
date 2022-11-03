@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../components/MenuNavigation/Layout";
 import ButtonBack from "../components/MenuNavigation/ButtonBack";
+import Logout from "../components/global/Logout";
 import { Icon } from "@iconify/react";
 
 const Home = () => {
@@ -12,18 +13,17 @@ const Home = () => {
 					text="Sectores"
 					pathSource="sectores"
 				/>
-
 				<ButtonBack
 					pathImg={<Icon icon="bi:pin-angle-fill" width={50} />}
 					text="Tareas"
 					pathSource="tareas"
 				/>
-
 				<ButtonBack
 					pathImg={<Icon icon="bxs:user" width={50} />}
 					text="Empleado"
 					pathSource="empleados"
 				></ButtonBack>
+				<Logout />
 			</Layout>
 		</>
 	);
