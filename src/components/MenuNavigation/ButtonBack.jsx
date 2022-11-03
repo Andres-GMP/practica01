@@ -7,7 +7,7 @@ const ButtonBack = ({ text, pathSource, pathImg }) => {
     <>
       <Link
         to={pathSource}
-        className="w-80 h-36  grid grid-rows-2 content-center  rounded-lg bg-white shadow-lg justify-center m-5 text-color9 bg-[#ffffff]
+        className="md:w-80 w-32 md:h-36 h-32 flex flex-col items-center rounded-lg gap-2 bg-white shadow-lg justify-center m-5 text-color9 bg-[#ffffff]
       "
       >
         {pathImg}

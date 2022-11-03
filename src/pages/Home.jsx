@@ -8,21 +8,19 @@ const Home = () => {
     <>
       <Layout>
         <ButtonBack
-          pathImg={
-            <Icon icon="ant-design:home-filled" className="w-full h-full" />
-          }
+          pathImg={<Icon icon="ant-design:home-filled" width={50} />}
           text="Inicio"
           pathSource="admin"
         />
 
         <ButtonBack
-          pathImg={<Icon icon="bi:pin-angle-fill" className="w-full h-full" />}
+          pathImg={<Icon icon="bi:pin-angle-fill" width={50} />}
           text="Tareas"
           pathSource="admin/tareas"
         />
 
         <ButtonBack
-          pathImg={<Icon icon="bxs:user" className="w-full h-full" />}
+          pathImg={<Icon icon="bxs:user" width={50} />}
           text="Empleado"
           pathSource="admin/empleados"
         ></ButtonBack>
