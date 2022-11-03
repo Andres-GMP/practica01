@@ -29,20 +29,6 @@ const Empleados = () => {
 		<>
 			<NavBar title="Empleados" />
 			<div className="max-w-2xl m-auto">
-				{/* <Table>
-					<THead>
-						<Th title="Nombre" size="w-10/12" />
-						<Th title="Sector" size="w-2/12" center />
-					</THead>
-					<tbody>
-						<Tr tableData={["Juan manolo", "Ab"]} />
-						<Tr tableData={["Juan manolo", "Ab"]} />
-						<Tr tableData={["Juan manolo", "Ab"]} />
-						<Tr tableData={["Juan manolo", "Ab"]} />
-						<Tr tableData={["Juan manolo", "Ab"]} />
-						<Tr tableData={["Juan manolo", "Ab"]} />
-					</tbody>
-				</Table> */}
 				{showForm && <EmployeesForm handleCloseForm={handleCloseForm} />}
 				<BtnAdd
 					onClick={() => {
