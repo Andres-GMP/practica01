@@ -4,7 +4,7 @@ import FormInput from "../global/form/FormInput";
 import FormLayout from "../global/form/FormLayout";
 import FormSubmit from "../global/form/FormSubmit";
 
-const EmployeesForm = () => {
+const EmployeesForm = ({ handleCloseForm }) => {
 	const [form, setForm] = useState({
 		name: "",
 		email: "",
@@ -22,8 +22,10 @@ const EmployeesForm = () => {
 			type: "text",
 			placeHolder: "Nombre(s) APaterno AMaterno",
 			label: "Nombre completo",
-			errorMessage: "Debes introduce un nombre!",
+			errorMessage: "Debes introducir un nombre!",
 			required: true,
+			errorpeer: `peer-invalid/name:data-[focused=true]:block`,
+			datapeer: `peer/name`,
 		},
 		{
 			id: 2,
@@ -33,6 +35,8 @@ const EmployeesForm = () => {
 			label: "Correo electronico",
 			errorMessage: "Debes introducir un email!",
 			required: true,
+			errorpeer: `peer-invalid/email:data-[focused=true]:block`,
+			datapeer: `peer/email`,
 		},
 		{
 			id: 3,
@@ -42,6 +46,9 @@ const EmployeesForm = () => {
 			label: "Contraseña",
 			errorMessage: "La contraseña debe tener al menos 8 caracteres",
 			required: true,
+			errorpeer: `peer-invalid/cpassword:data-[focused=true]:block`,
+			datapeer: `peer/cpassword`,
+			pattern: ".{8,30}",
 		},
 		{
 			id: 4,
@@ -51,10 +58,13 @@ const EmployeesForm = () => {
 			label: "Confirmar contraseña",
 			errorMessage: "Las contraseñas no coinciden",
 			required: true,
+			errorpeer: `peer-invalid/cpassword:data-[focused=true]:block`,
+			datapeer: `peer/cpassword`,
+			pattern: form.password,
 		},
 	];
 	return (
-		<FormLayout title="Agregar Empleado">
+		<FormLayout title="Agregar Empleado" handleCloseForm={handleCloseForm}>
 			<form action="">
 				{inputs?.map((input) => (
 					<FormInput
@@ -62,7 +72,6 @@ const EmployeesForm = () => {
 						{...input}
 						value={form[input.name]}
 						onChange={handleChange}
-						errorpeer=""
 					/>
 				))}
 				<FormSubmit bg=" bg-green-500 " />

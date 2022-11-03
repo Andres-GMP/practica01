@@ -7,9 +7,15 @@ const FormInput = (props) => {
 	console.log(inputProps.name);
 	return (
 		<>
-			<label className="block mt-2">{label}:</label>
+			<label className="block mt-2">
+				{label}
+				{inputProps.required && <span className="text-red-500">*</span>}
+			</label>
 			<input
-				className="block border-2 rounded-md w-full p-1 mt-2 border-blue-500 peer/input"
+				className={
+					"block border-2 rounded-md w-full p-1 mt-2 border-blue-500 " +
+					datapeer
+				}
 				{...inputProps}
 				onBlur={() => {
 					setFocused(true);
@@ -17,7 +23,7 @@ const FormInput = (props) => {
 			/>
 			<span
 				data-focused={focused.toString()}
-				className="hidden peer-invalid/input:data-[focused=true]:block text-sm text-red-600 ml-1"
+				className={"hidden text-sm text-red-600 ml-1 " + errorpeer}
 			>
 				{errorMessage}
 			</span>

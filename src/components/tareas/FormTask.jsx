@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import FormLayout from "../form/FormLayout";
-import FormInput from "../form/FormInput";
-import FormSelect from "../form/FormSelect";
-import FormSubmit from "../form/FormSubmit";
-import FormDelete from "../form/FormDelete";
+import FormLayout from "../global/form/FormLayout";
+import FormInput from "../global/form/FormInput";
+import FormSelect from "../global/form/FormSelect";
+import FormSubmit from "../global/form/FormSubmit";
+import FormDelete from "../global/form/FormDelete";
 import AuthContext from "../../context/AuthContext";
 
 const FormTask = ({
@@ -50,6 +50,8 @@ const FormTask = ({
 						value={form?.description}
 						onChange={handleChange}
 						errorMessage="Escribe una descripción!"
+						errorpeer="peer-invalid/description:data-[focused=true]:block"
+						datapeer="peer/description"
 						required
 					/>
 					<FormSelect

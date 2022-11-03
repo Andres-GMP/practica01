@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Form from "../components/global/form/FormLayout";
-import FormInput from "../components/global/form/FormInput";
 import BtnAdd from "../components/global/BtnAdd";
 import NavBar from "../components/global/NavBar";
 import Table from "../components/global/table/Table";
@@ -10,6 +8,10 @@ import Tr from "../components/global/table/Tr";
 import EmployeesForm from "../components/empleados/EmployeesForm";
 
 const Empleados = () => {
+	const [showForm, setShowForm] = useState(true);
+	const handleCloseForm = (e) => {
+		setShowForm(false);
+	};
 	return (
 		<>
 			<NavBar title="Empleados" />
@@ -28,8 +30,12 @@ const Empleados = () => {
 						<Tr tableData={["Juan manolo", "Ab"]} />
 					</tbody>
 				</Table>
-				<EmployeesForm />
-				<BtnAdd />
+				{showForm && <EmployeesForm handleCloseForm={handleCloseForm} />}
+				<BtnAdd
+					onClick={() => {
+						setShowForm(true);
+					}}
+				/>
 			</div>
 		</>
 	);
