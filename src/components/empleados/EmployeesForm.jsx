@@ -64,7 +64,7 @@ const EmployeesForm = ({ handleCloseForm }) => {
 		},
 	];
 	return (
-		<FormLayout title="Agregar Empleado" handleCloseForm={handleCloseForm}>
+		<FormLayout title="Agregar empleado" handleCloseForm={handleCloseForm}>
 			<form action="">
 				{inputs?.map((input) => (
 					<FormInput
