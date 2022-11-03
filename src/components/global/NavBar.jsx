@@ -6,7 +6,7 @@ export default function NavBar({ title }) {
 				<div className="flex items-center py-5">
 					<Link
 						className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-100 focus:border focus:p-2"
-						to="/home"
+						to="/admin"
 					>
 						<svg
 							className="w-6 h-6"

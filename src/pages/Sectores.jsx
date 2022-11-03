@@ -1,4 +1,4 @@
-import NavBar from "../components/sectores/Header";
+import NavBar from "../components/global/NavBar";
 import Background from "../components/sectores/Background";
 import SectorBox from "../components/sectores/SectorBox";
 const Sectores = () => {
@@ -7,11 +7,7 @@ const Sectores = () => {
 			<body>
 				<NavBar></NavBar>
 				<Background>
-					<SectorBox
-						sector="B"
-						numTrabajadores="10"
-						numTareas="5">
-					</SectorBox>
+					<SectorBox sector="B" numTrabajadores="10" numTareas="5"></SectorBox>
 				</Background>
 			</body>
 		</>
