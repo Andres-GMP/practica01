@@ -5,7 +5,7 @@ const Sectores = () => {
 	return (
 		<>
 			<body>
-				<NavBar></NavBar>
+				<NavBar title="SECTORES"></NavBar>
 				<Background>
 					<SectorBox sector="B" numTrabajadores="10" numTareas="5"></SectorBox>
 				</Background>
