@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 const ButtonBack = ({ text, pathSource, pathImg }) => {
   return (
     <>
-      <Link to={pathSource} className="w-full h-40 flex content-center ">
+      <Link
+        to={pathSource}
+        className="w-80 h-36  grid grid-rows-2 content-center  rounded-lg bg-white shadow-lg justify-center m-5 text-color9 bg-[#ffffff]
+      "
+      >
         {pathImg}
         <span>{text}</span>
       </Link>
