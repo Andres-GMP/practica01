@@ -17,22 +17,17 @@ const TareasEmpleado = () => {
 	const [sectorName, setSectorName] = useState("");
 	useEffect(() => {
 		const getTasks = async () => {
-			//getUserSector
-			let docRef = doc(db, "users", currentUser.uid);
-			let docSnap = await getDoc(docRef);
-
 			//getSectorTask
-			const currentSector = await docSnap.data().sector;
-			docRef = doc(db, "sectors", currentSector);
-			docSnap = await getDoc(docRef);
+			const currentSector = await currentUser.sector;
+			const docRef = doc(db, "sectors", currentSector);
+			const docSnap = await getDoc(docRef);
 
 			//setTasks
-			let newData = [];
+			setTasks([]);
 			docSnap.data().tasks.forEach((el) => {
 				if (el.status !== "Pendiente") return;
-				newData.push({ ...el, sector: currentSector });
+				setTasks((prev) => [...prev, el]);
 			});
-			setTasks(newData);
 			setSectorName(currentSector);
 		};
 		currentUser.uid && getTasks();
