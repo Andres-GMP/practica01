@@ -1,0 +1,26 @@
+import { useState } from "react";
+import { Icon } from "@iconify/react";
+
+const Th = ({ title, columnName, size, onClick, center }) => {
+	const [isAsc, setIsAsc] = useState(false);
+	return (
+		<th className={"p-1" + size}>
+			<button
+				className={"flex items-center " + (center && "m-auto")}
+				onClick={(e) => {
+					onClick(columnName, isAsc);
+					setIsAsc(!isAsc);
+				}}
+			>
+				{isAsc ? (
+					<Icon icon="ic:outline-arrow-drop-down" width={25} color="white" />
+				) : (
+					<Icon icon="ic:outline-arrow-drop-up" width={25} color="white" />
+				)}
+				<span>{title}</span>
+			</button>
+		</th>
+	);
+};
+
+export default Th;

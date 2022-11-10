@@ -1,14 +1,36 @@
 import FormInput from "./../components/login/FormInput";
 import Layout from "./../components/login/Layout";
 import Hr from "./../components/login/Hr";
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
+import { useContext, useEffect } from "react";
+import AuthContext from "../context/AuthContext";
+import { useLocation } from "react-router-dom";
 
 const Login = () => {
-	const handleSubmit = (e) => {
+	const navigate = useNavigate();
+	const location = useLocation();
+	const { currentUser } = useContext(AuthContext);
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if (currentUser.id) return;
 		const formData = new FormData(e.target);
-		const data = Object.fromEntries(formData.entries());
-		console.log(data);
+		const { email, password } = Object.fromEntries(formData.entries());
+		try {
+			await signInWithEmailAndPassword(auth, email, password);
+		} catch (err) {
+			console.log(err);
+		}
 	};
+	useEffect(() => {
+		if (!currentUser.uid) return;
+		if (!location.state || currentUser.admin !== location.state.admin) {
+			navigate(currentUser.admin ? "/admin" : "/tareas");
+			return;
+		}
+		navigate(location.state.from);
+	}, [currentUser]);
 
 	return (
 		<>
@@ -21,10 +43,10 @@ const Login = () => {
 					className="flex flex-col w-full h-3/5 justify-evenly"
 				>
 					<FormInput
-						name="id"
-						title="INGRESE SUS DATOS"
-						placeholder="NUMERO"
-						type="text"
+						name="email"
+						title="INGRESE SU CORREO"
+						placeholder="Correo"
+						type="email"
 					/>
 					<FormInput
 						name="password"
