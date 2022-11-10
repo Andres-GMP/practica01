@@ -22,12 +22,14 @@ const Empleados = () => {
 	};
 	useEffect(() => {
 		const getEmployees = async () => {
-			let q = query(collection(db, "users"), where("admin", "==", false));
-			const querySnapshot = await getDocs(q);
-			setEmployees([]);
-			querySnapshot.forEach((el) =>
-				setEmployees((prev) => [...prev, el.data()])
-			);
+			try {
+				let q = query(collection(db, "users"), where("admin", "==", false));
+				const querySnapshot = await getDocs(q);
+				setEmployees([]);
+				querySnapshot.forEach((el) =>
+					setEmployees((prev) => [...prev, el.data()])
+				);
+			} catch (err) {}
 		};
 		currentUser.uid && getEmployees();
 	}, [currentUser.uid]);
