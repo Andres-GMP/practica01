@@ -13,6 +13,7 @@ const FormInput = ({ title, placeholder, type, name }) => {
 					type={type}
 					placeholder={placeholder}
 					name={name}
+					required
 				/>
 			</div>
 		</>
